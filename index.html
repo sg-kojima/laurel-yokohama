@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ローレル横浜 ｜ 横浜市西区のデイサービス</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       Reset & Variables
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink:         #c2187e;   /* ロゴ：ディープマゼンタ */
+      --pink-pale:    #fce8f3;   /* ロゴ：薄ピンクペタル */
+      --pink-light:   #f5afd4;   /* ロゴ：ミディアムピンク */
+      --purple:       #7b2d8b;   /* ロゴ：パープル */
+      --bg:           #ffffff;
+      --bg-muted:     #fdf5f9;   /* 薄ピンクがかったオフホワイト */
+      --text:         #2a1a2e;   /* ダークパープルブラウン */
+      --text-sub:     #6b5570;
+      --text-soft:    #a090a8;
+      --border:       #ebd5e5;
+      --font-main:    'Noto Sans JP', "Hiragino Sans", "Yu Gothic", sans-serif;
+      --font-round:   'M PLUS Rounded 1c', "Hiragino Sans", sans-serif;
+      --font-mono:    'Courier New', monospace;
+      --max-w:        1200px;
+    }
+
+    html { font-size: 18px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      line-height: 1.9;
+      color: var(--text);
+      background: var(--bg);
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ============================================================
+       共通パーツ
+    ============================================================ */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: var(--pink);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 40px;
+      font-size: 0.83rem;
+      letter-spacing: 0.08em;
+      font-family: var(--font-main);
+      cursor: pointer;
+      transition: all 0.22s;
+      border: none;
+      line-height: 1;
+    }
+    .btn-primary  { background: var(--pink);   color: #fff; border: 1px solid var(--pink); }
+    .btn-primary:hover  { background: #a51268; border-color: #a51268; }
+    .btn-outline  { background: transparent; color: var(--pink); border: 1px solid var(--pink); }
+    .btn-outline:hover  { background: var(--pink); color: #fff; }
+    .btn-white    { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.65); }
+    .btn-white:hover    { background: rgba(255,255,255,.14); }
+    .btn-dark     { background: var(--text); color: #fff; border: 1px solid var(--text); }
+    .btn-dark:hover     { background: #1a0820; }
+    .btn-sm       { padding: 10px 28px; font-size: 0.78rem; }
+    .btn-lg       { padding: 18px 56px; font-size: 0.88rem; }
+
+    /* ============================================================
+       Header
+    ============================================================ */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    .site-header.scrolled {
+      box-shadow: 0 2px 24px rgba(194,24,126,.09);
+    }
+    .header-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 48px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-img {
+      height: 44px;
+      width: auto;
+    }
+    .logo-texts { line-height: 1.2; }
+    .logo-ja {
+      font-family: var(--font-round);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--pink);
+      letter-spacing: 0.04em;
+    }
+    .logo-en {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--text-soft);
+      letter-spacing: 0.18em;
+    }
+
+    /* デスクトップナビ */
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-link {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      transition: color .2s;
+    }
+    .nav-link:hover { color: var(--pink); }
+    .nav-cta {
+      padding: 9px 22px;
+      background: var(--pink);
+      color: #fff;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: #a51268; color: #fff; }
+
+    /* ドロップダウン */
+    .nav-item {
+      position: relative;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-item .dropdown {
+      display: none;
+      position: absolute;
+      top: 68px;
+      left: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--pink);
+      min-width: 200px;
+      z-index: 200;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .nav-item:hover .dropdown { display: block; }
+    .nav-item:hover > .nav-link { color: var(--pink); }
+    .nav-item .dropdown ul { list-style: none; }
+    .nav-item .dropdown li { border-bottom: 1px solid var(--border); }
+    .nav-item .dropdown li:last-child { border-bottom: none; }
+    .nav-item .dropdown a {
+      display: block;
+      padding: 13px 18px;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+    .nav-item .dropdown a:hover {
+      background: var(--bg-muted);
+      color: var(--pink);
+    }
+
+    /* ハンバーガー */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px; height: 44px;
+      cursor: pointer;
+      background: none; border: none; padding: 0;
+      z-index: 200;
+      color: var(--text);
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: currentColor;
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ドロワー */
+    .mobile-drawer {
+      position: fixed; top: 0; right: 0;
+      width: 280px; height: 100%;
+      background: var(--purple);
+      z-index: 300;
+      transform: translateX(100%);
+      transition: transform .35s cubic-bezier(.16,1,.3,1);
+      padding: 80px 36px 48px;
+    }
+    .mobile-drawer.open { transform: translateX(0); }
+    .drawer-close {
+      position: absolute; top: 22px; right: 22px;
+      background: none; border: none; cursor: pointer;
+      font-size: 18px; color: rgba(255,255,255,.65); padding: 8px;
+    }
+    .drawer-nav { display: flex; flex-direction: column; }
+    .drawer-nav a {
+      font-size: 13px; letter-spacing: .08em;
+      color: rgba(255,255,255,.82);
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      transition: color .2s;
+    }
+    .drawer-nav a:last-child { border-bottom: none; }
+    .drawer-nav a:hover { color: #fff; }
+    .drawer-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.4);
+      z-index: 290;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s;
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+    /* ============================================================
+       Hero Slider（フェードスライド 4枚）
+    ============================================================ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      overflow: hidden;
+    }
+
+    /* スライド本体 */
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.4s ease-in-out;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* グラデーションオーバーレイ：左から右へ暗→透明 */
+    .hero-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(42,10,40,.62) 0%,
+        rgba(42,10,40,.30) 55%,
+        rgba(42,10,40,.08) 100%
+      );
+    }
+
+    /* テキストエリア */
+    .hero-body {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding-top: 68px; /* header高さ分 */
+      z-index: 10;
+    }
+    .hero-body .container { width: 100%; }
+    .hero-text { max-width: 540px; }
+
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,.65);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: var(--font-round);
+      font-size: clamp(2rem, 3.6vw, 3rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: 22px;
+      text-shadow: 0 2px 16px rgba(0,0,0,.18);
+    }
+    .hero-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,.82);
+      line-height: 2;
+      margin-bottom: 40px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ドットナビ */
+    .hero-dots {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+    .hero-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.4);
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: background .3s, transform .3s;
+    }
+    .hero-dot.active {
+      background: #fff;
+      transform: scale(1.4);
+    }
+
+    /* スライドカウンター */
+    .hero-counter {
+      position: absolute;
+      bottom: 36px;
+      right: 48px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255,255,255,.45);
+      letter-spacing: 0.1em;
+      z-index: 20;
+    }
+
+    /* ============================================================
+       MV下バナースライダー（5枚）
+    ============================================================ */
+    .banner-section {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .banner-track-wrap {
+      overflow: hidden;
+    }
+    .banner-track {
+      display: flex;
+      transition: transform .5s cubic-bezier(.4,0,.2,1);
+    }
+    .banner-item {
+      flex: 0 0 25%;
+      min-width: 25%;
+      border-right: 1px solid var(--border);
+    }
+    .banner-item a {
+      display: block;
+      overflow: hidden;
+    }
+    .banner-item-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .banner-item-img img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .banner-item a:hover .banner-item-img img { transform: scale(1.06); }
+
+    /* テキストオーバーレイ（画像下部のグラデーション） */
+    .banner-item-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(42,10,40,.80) 0%, rgba(42,10,40,.20) 60%, transparent 100%);
+      padding: 48px 20px 20px;
+    }
+    .banner-item-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.55;
+    }
+
+    /* バナーナビ矢印 */
+    .banner-arrows {
+      display: flex;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+    .banner-arrow {
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--pink);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background .2s;
+    }
+    .banner-arrow:hover { background: #a51268; }
+    .banner-arrow:disabled { background: #ddd; color: #aaa; cursor: default; }
+    .banner-arrow + .banner-arrow { border-left: 1px solid rgba(255,255,255,.2); }
+
+    /* ============================================================
+       Concept Section（③ コンセプト）
+    ============================================================ */
+    .concept {
+      position: relative;
+      height: 80vh;
+      min-height: 540px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .concept-bg {
+      position: absolute;
+      inset: 0;
+    }
+    .concept-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .concept-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.60);
+    }
+    .concept-body {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 600px;
+      padding: 0 48px;
+    }
+    .concept-body .section-label { display: block; text-align: center; margin-bottom: 20px; }
+    .concept-title {
+      font-family: var(--font-round);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+    .concept-desc {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 2.1;
+      margin-bottom: 40px;
+    }
+
+    /* ============================================================
+       Features Section（④ 選ばれる理由）
+    ============================================================ */
+    .features { padding: 0; }
+
+    .features-heading {
+      text-align: center;
+      padding: 90px 0 72px;
+    }
+    .features-heading h2 {
+      font-family: var(--font-round);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--border);
+    }
+    .feature-img {
+      min-height: 580px;
+      overflow: hidden;
+    }
+    .feature-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .feature-row:hover .feature-img img { transform: scale(1.03); }
+
+    .feature-text {
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+    }
+    .feature-text.right {
+      border-right: none;
+      border-left: 1px solid var(--border);
+    }
+    .feature-num {
+      font-family: var(--font-mono);
+      font-size: 2.4rem;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 22px;
+      letter-spacing: -0.02em;
+    }
+    .feature-title {
+      font-family: var(--font-round);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .feature-desc {
+      font-size: 0.83rem;
+      color: var(--text-sub);
+      line-height: 1.95;
+    }
+
+    /* ============================================================
+       Service / Daily Flow（⑤ 背景写真＋白テキストボックス）
+    ============================================================ */
+    .service-flow { border-top: 1px solid var(--border); }
+
+    .service-card {
+      position: relative;
+      min-height: 640px;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .service-card:last-child { border-bottom: none; }
+
+    .service-card-bg {
+      position: absolute;
+      inset: 0;
+    }
+    .service-card-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .8s ease;
+    }
+    .service-card:hover .service-card-bg img { transform: scale(1.04); }
+
+    .service-card-text {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      max-width: 480px;
+      background: #fff;
+      padding: 32px 36px;
+    }
+    .service-card-text .section-label { margin-bottom: 10px; }
+    .service-card-title {
+      font-family: var(--font-round);
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .service-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    /* ============================================================
+       Lunch & Sweets Preview（⑥ CAFE de la PRESSE形式）
+    ============================================================ */
+    .lunch-section {
+      background: var(--bg-muted);
+      padding: 100px 0;
+    }
+    .lunch-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+    .lunch-head h2 {
+      font-family: var(--font-round);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+    }
+    .lunch-more {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--pink);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--pink);
+      padding-bottom: 2px;
+    }
+    .lunch-more:hover { color: #a51268; border-color: #a51268; }
+
+    .lunch-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+    .lunch-item {
+      border-right: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .lunch-item:last-child { border-right: none; }
+
+    .lunch-item-img {
+      overflow: hidden;
+    }
+    .lunch-item-img img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .lunch-item:hover .lunch-item-img img { transform: scale(1.05); }
+
+    .lunch-item-body {
+      padding: 20px 24px 28px;
+      border-top: 1px solid var(--border);
+    }
+    .lunch-date {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .lunch-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    /* ============================================================
+       Voice Section（⑦ 利用者の声）
+    ============================================================ */
+    .voice-section { padding: 110px 0; }
+    .voice-head {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .voice-head h2 {
+      font-family: var(--font-round);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+    }
+
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .voice-card {
+      background: var(--bg-muted);
+      padding: 36px 32px;
+      position: relative;
+    }
+    .voice-card::before {
+      content: '\201C';
+      font-size: 4rem;
+      color: var(--pink-pale);
+      font-family: Georgia, serif;
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      line-height: 1;
+    }
+    .voice-text {
+      font-size: 0.83rem;
+      line-height: 1.95;
+      color: var(--text-sub);
+      margin-bottom: 24px;
+      padding-top: 28px;
+    }
+    .voice-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+    .voice-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .voice-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .voice-role {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
+
+    /* ============================================================
+       News Section（⑧ お知らせ）
+    ============================================================ */
+    .news-section {
+      padding: 100px 0;
+      background: var(--bg-muted);
+    }
+    .news-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+    .news-head h2 {
+      font-family: var(--font-round);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+    }
+    .news-more {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--pink);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--pink);
+      padding-bottom: 2px;
+    }
+    .news-more:hover { color: #a51268; border-color: #a51268; }
+
+    .news-list { border-top: 1px solid var(--border); }
+    .news-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .news-item a {
+      display: flex;
+      align-items: baseline;
+      gap: 32px;
+      padding: 22px 0;
+      transition: color .2s;
+    }
+    .news-item a:hover { color: var(--pink); }
+    .news-date {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .news-title {
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       CTA Section（⑨）
+    ============================================================ */
+    .cta-section {
+      background: var(--text);
+      padding: 100px 0;
+      text-align: center;
+    }
+    .cta-section .section-label { color: rgba(255,255,255,.35); }
+    .cta-title {
+      font-family: var(--font-round);
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .cta-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,.5);
+      margin-bottom: 48px;
+      line-height: 1.9;
+    }
+    .cta-btns {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .cta-tel {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,.3);
+      letter-spacing: 0.1em;
+    }
+
+    /* ============================================================
+       Footer
+    ============================================================ */
+    footer {
+      background: #1a0820;
+      color: rgba(255,255,255,.35);
+      padding: 72px 0 36px;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 56px;
+      margin-bottom: 56px;
+    }
+    .footer-brand {}
+    .footer-logo-img {
+      height: 40px;
+      width: auto;
+      max-width: none;
+      margin-bottom: 16px;
+      filter: brightness(0) invert(1) opacity(.6);
+    }
+    .footer-logo-name {
+      font-family: var(--font-round);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.75);
+      margin-bottom: 4px;
+    }
+    .footer-logo-en {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,.2);
+      margin-bottom: 20px;
+    }
+    .footer-addr {
+      font-size: 0.72rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,.35);
+    }
+    .footer-nav-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.55);
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
+    .footer-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-nav-list a {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,.35);
+      letter-spacing: 0.02em;
+      transition: color .2s;
+    }
+    .footer-nav-list a:hover { color: rgba(255,255,255,.75); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255,255,255,.2);
+      letter-spacing: 0.06em;
+    }
+    .footer-policy {
+      font-size: 11px;
+      color: rgba(255,255,255,.2);
+      transition: color .2s;
+    }
+    .footer-policy:hover { color: rgba(255,255,255,.5); }
+
+    /* ============================================================
+       Responsive
+    ============================================================ */
+    @media (max-width: 860px) {
+      html { font-size: 16px; }
+      .container { padding: 0 24px; }
+      .main-nav { display: none; }
+      .hamburger { display: flex; }
+      .header-inner { padding: 0 24px; }
+
+      .hero-counter { right: 24px; }
+
+      .banner-item { flex: 0 0 50%; min-width: 50%; }
+
+      .feature-row { grid-template-columns: 1fr; }
+      .feature-img { min-height: 300px; }
+      .feature-text,
+      .feature-text.right { border-right: none; border-left: none; padding: 40px 24px; }
+
+      .voice-grid { grid-template-columns: 1fr; gap: 24px; }
+      .lunch-list { grid-template-columns: 1fr; }
+      .lunch-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .lunch-item:last-child { border-bottom: none; }
+
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+      .cta-btns { flex-direction: column; align-items: center; }
+
+      .service-card-text { left: 20px; right: 20px; max-width: none; bottom: 20px; padding: 24px; }
+    }
+
+    @media (max-width: 560px) {
+      .banner-item { flex: 0 0 100%; min-width: 100%; }
+      .hero-btns { flex-direction: column; }
+      .hero-title { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       Header
+  ============================================================ -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <img src="sozai/logo.jpg" alt="ローレル横浜ロゴ" class="logo-img">
+        <div class="logo-texts">
+          <div class="logo-ja">ローレル横浜</div>
+          <div class="logo-en">LAUREL YOKOHAMA</div>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <div class="nav-item">
+          <a href="#" class="nav-link">施設について ▾</a>
+          <div class="dropdown">
+            <ul>
+              <li><a href="#">ローレル横浜について</a></li>
+              <li><a href="#">1日の流れ</a></li>
+              <li><a href="#">利用者の声</a></li>
+            </ul>
+          </div>
+        </div>
+        <a href="#" class="nav-link">サービス内容</a>
+        <a href="#" class="nav-link">選ばれる理由</a>
+        <div class="nav-item">
+          <a href="#" class="nav-link">ご利用案内 ▾</a>
+          <div class="dropdown">
+            <ul>
+              <li><a href="#">ご利用案内</a></li>
+              <li><a href="#">よくあるご質問</a></li>
+            </ul>
+          </div>
+        </div>
+        <a href="#" class="nav-link">お知らせ</a>
+        <a href="#" class="nav-cta">お問い合わせ</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ドロワー -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <button class="drawer-close" id="drawerClose">✕</button>
+    <nav class="drawer-nav">
+      <a href="#">施設について</a>
+      <a href="#">サービス内容</a>
+      <a href="#">選ばれる理由</a>
+      <a href="#">ご利用案内</a>
+      <a href="#">お知らせ</a>
+      <a href="#">お問い合わせ</a>
+    </nav>
+  </div>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+
+  <main>
+
+    <!-- ============================================================
+         ① Hero Slider（フェードスライド 4枚）
+    ============================================================ -->
+    <section class="hero" id="hero">
+
+      <!-- スライド 1 -->
+      <div class="hero-slide active">
+        <img
+          src="sozai/pixta_38241171_XL.jpg"
+          alt="施設の様子">
+      </div>
+
+      <!-- スライド 2 -->
+      <div class="hero-slide">
+        <img
+          src="sozai/pixta_31434843_XL.jpg"
+          alt="アクティビティの様子">
+      </div>
+
+      <!-- スライド 3 -->
+      <div class="hero-slide">
+        <img
+          src="sozai/pixta_104536172_XL.jpg"
+          alt="手作りのお食事">
+      </div>
+
+      <!-- スライド 4 -->
+      <div class="hero-slide">
+        <img
+          src="sozai/pixta_38790267_XL.jpg"
+          alt="イベントの様子">
+      </div>
+
+      <!-- テキストコンテンツ -->
+      <div class="hero-body">
+        <div class="container">
+          <div class="hero-text">
+            <span class="hero-label">LAUREL YOKOHAMA</span>
+            <h1 class="hero-title">
+              ここに来ると、<br>
+              毎日が輝きはじめる。
+            </h1>
+            <p class="hero-desc">
+              色彩と演出の専門家が手がける、<br>
+              心地よい空間と充実のプログラム。<br>
+              笑顔があふれるデイサービスです。
+            </p>
+            <div class="hero-btns">
+              <a href="#" class="btn btn-primary btn-lg">見学を予約する</a>
+              <a href="#" class="btn btn-white btn-lg">施設のご紹介</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ドットナビ -->
+      <div class="hero-dots" id="heroDots">
+        <button class="hero-dot active" data-index="0"></button>
+        <button class="hero-dot" data-index="1"></button>
+        <button class="hero-dot" data-index="2"></button>
+        <button class="hero-dot" data-index="3"></button>
+      </div>
+
+      <!-- スライドカウンター -->
+      <div class="hero-counter" id="heroCounter">01 / 04</div>
+
+    </section>
+
+
+    <!-- ============================================================
+         ② MV下バナースライダー（5枚）
+    ============================================================ -->
+    <section class="banner-section">
+      <div class="banner-track-wrap" id="bannerTrackWrap">
+        <div class="banner-track" id="bannerTrack">
+
+          <!-- バナー 1 -->
+          <div class="banner-item">
+            <a href="#">
+              <div class="banner-item-img">
+                <img
+                  src="sozai/pixta_54616556_XL.jpg"
+                  alt="イベント情報">
+                <div class="banner-item-overlay">
+                  <p class="banner-item-title">季節のイベント・外出レク情報</p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- バナー 2 -->
+          <div class="banner-item">
+            <a href="#">
+              <div class="banner-item-img">
+                <img
+                  src="sozai/pixta_60219848_XL.jpg"
+                  alt="ランチ・スイーツ">
+                <div class="banner-item-overlay">
+                  <p class="banner-item-title">今週のランチ・スイーツメニュー</p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- バナー 3 -->
+          <div class="banner-item">
+            <a href="#">
+              <div class="banner-item-img">
+                <img
+                  src="sozai/pixta_69408998_XL.jpg"
+                  alt="クラブ活動">
+                <div class="banner-item-overlay">
+                  <p class="banner-item-title">クラブ活動・プログラム紹介</p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- バナー 4 -->
+          <div class="banner-item">
+            <a href="#">
+              <div class="banner-item-img">
+                <img
+                  src="sozai/pixta_77971773_XL.jpg"
+                  alt="機能訓練">
+                <div class="banner-item-overlay">
+                  <p class="banner-item-title">個別機能訓練・リハビリのご案内</p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- バナー 5 -->
+          <div class="banner-item">
+            <a href="#">
+              <div class="banner-item-img">
+                <img
+                  src="sozai/pixta_79555662_XL.jpg"
+                  alt="見学・お問い合わせ">
+                <div class="banner-item-overlay">
+                  <p class="banner-item-title">見学予約・お問い合わせはこちら</p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div><!-- /banner-track -->
+      </div><!-- /banner-track-wrap -->
+
+      <!-- 矢印ナビ -->
+      <div class="banner-arrows">
+        <button class="banner-arrow" id="bannerPrev" aria-label="前へ" disabled>&#8249;</button>
+        <button class="banner-arrow" id="bannerNext" aria-label="次へ">&#8250;</button>
+      </div>
+
+    </section>
+
+
+    <!-- ============================================================
+         ③ Concept
+    ============================================================ -->
+    <section class="concept">
+      <div class="concept-bg">
+        <img
+          src="sozai/pixta_83265312_L.jpg"
+          alt="ローレル横浜について">
+      </div>
+      <div class="concept-body">
+        <span class="section-label">CONCEPT</span>
+        <h2 class="concept-title">ローレル横浜について</h2>
+        <p class="concept-desc">
+          代表の色彩・空間演出の専門知識を介護の現場に活かした、
+          ここだけのデイサービス。<br>
+          訪れるたびに「ここに来てよかった」と感じていただける
+          場所を目指しています。
+        </p>
+        <a href="#" class="btn btn-outline">詳しく見る →</a>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         ④ Features（選ばれる理由）
+    ============================================================ -->
+    <section class="features">
+      <div class="features-heading">
+        <span class="section-label" style="display:block; text-align:center; margin-bottom:14px;">FEATURE</span>
+        <h2>ローレル横浜が選ばれる理由</h2>
+      </div>
+
+      <!-- 01 左テキスト・右写真 -->
+      <div class="feature-row">
+        <div class="feature-text">
+          <p class="feature-num">01</p>
+          <h3 class="feature-title">色彩・空間演出</h3>
+          <p class="feature-desc">代表の専門知識を活かした独自の空間づくり。<br>色彩と演出が生み出す、心地よい居場所。</p>
+        </div>
+        <div class="feature-img">
+          <img
+            src="sozai/pixta_90317168_XL.jpg"
+            alt="色彩・空間演出">
+        </div>
+      </div>
+
+      <!-- 02 左写真・右テキスト -->
+      <div class="feature-row" style="border-top:none;">
+        <div class="feature-img">
+          <img
+            src="sozai/pixta_92159488_XL.jpg"
+            alt="毎日手作りの食事">
+        </div>
+        <div class="feature-text right">
+          <p class="feature-num">02</p>
+          <h3 class="feature-title">毎日手作りの食事</h3>
+          <p class="feature-desc">素材・栄養・おいしさへのこだわり。<br>食べることの楽しみを毎日お届けします。</p>
+        </div>
+      </div>
+
+      <!-- 03 左テキスト・右写真 -->
+      <div class="feature-row" style="border-top:1px solid var(--border);">
+        <div class="feature-text">
+          <p class="feature-num">03</p>
+          <h3 class="feature-title">多彩なイベント</h3>
+          <p class="feature-desc">季節のイベント・外出・クラブ活動など、<br>毎日が楽しみになるプログラム。</p>
+        </div>
+        <div class="feature-img">
+          <img
+            src="sozai/imasia_7166643_M.jpg"
+            alt="多彩なイベント">
+        </div>
+      </div>
+
+      <!-- 04 左写真・右テキスト -->
+      <div class="feature-row" style="border-top:none;">
+        <div class="feature-img">
+          <img
+            src="sozai/pixta_104536172_XL.jpg"
+            alt="企画力・演出力">
+        </div>
+        <div class="feature-text right">
+          <p class="feature-num">04</p>
+          <h3 class="feature-title">企画力・演出力</h3>
+          <p class="feature-desc">「非日常」を日常に。<br>スタッフの創意工夫が生み出す、ここだけの体験。</p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ============================================================
+         ⑤ Service / Daily Flow（背景写真＋白テキストボックス）
+    ============================================================ -->
+    <section class="service-flow">
+
+      <!-- サービス内容 -->
+      <div class="service-card">
+        <div class="service-card-bg">
+          <img
+            src="sozai/pixta_31434843_XL.jpg"
+            alt="サービス内容">
+        </div>
+        <div class="service-card-text">
+          <span class="section-label">SERVICE</span>
+          <h2 class="service-card-title">サービス内容</h2>
+          <p class="service-card-desc">機能訓練・入浴・食事・送迎など、<br>充実したサービスをご提供しています。</p>
+          <a href="#" class="btn btn-primary btn-sm">詳しく見る →</a>
+        </div>
+      </div>
+
+      <!-- 1日の流れ -->
+      <div class="service-card">
+        <div class="service-card-bg">
+          <img
+            src="sozai/pixta_38241171_XL.jpg"
+            alt="1日の流れ">
+        </div>
+        <div class="service-card-text">
+          <span class="section-label">DAILY FLOW</span>
+          <h2 class="service-card-title">1日の流れ</h2>
+          <p class="service-card-desc">送迎・機能訓練・昼食・レクリエーション・帰宅まで、<br>充実した1日をお過ごしいただけます。</p>
+          <a href="#" class="btn btn-primary btn-sm">詳しく見る →</a>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ============================================================
+         ⑥ Lunch & Sweets Preview
+    ============================================================ -->
+    <section class="lunch-section">
+      <div class="container">
+        <div class="lunch-head">
+          <div>
+            <span class="section-label">LUNCH &amp; SWEETS</span>
+            <h2>ランチ・スイーツ</h2>
+          </div>
+          <a href="#" class="lunch-more">VIEW MORE</a>
+        </div>
+        <div class="lunch-list">
+          <div class="lunch-item">
+            <div class="lunch-item-img">
+              <img
+                src="sozai/pixta_38790267_XL.jpg"
+                alt="ランチメニュー">
+            </div>
+            <div class="lunch-item-body">
+              <span class="lunch-date">2026.06.16</span>
+              <p class="lunch-title">6月のランチメニュー：夏野菜の彩り定食</p>
+            </div>
+          </div>
+          <div class="lunch-item">
+            <div class="lunch-item-img">
+              <img
+                src="sozai/pixta_54616556_XL.jpg"
+                alt="スイーツ">
+            </div>
+            <div class="lunch-item-body">
+              <span class="lunch-date">2026.06.12</span>
+              <p class="lunch-title">梅雨のおやつ：あじさいゼリーと抹茶わらび餅</p>
+            </div>
+          </div>
+          <div class="lunch-item">
+            <div class="lunch-item-img">
+              <img
+                src="sozai/pixta_60219848_XL.jpg"
+                alt="特別メニュー">
+            </div>
+            <div class="lunch-item-body">
+              <span class="lunch-date">2026.06.08</span>
+              <p class="lunch-title">おたんじょうびメニュー：お赤飯とお祝いデザート</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         ⑦ Voice（利用者の声）
+    ============================================================ -->
+    <section class="voice-section">
+      <div class="container">
+        <div class="voice-head">
+          <span class="section-label">VOICE</span>
+          <h2>利用者さまの声</h2>
+        </div>
+        <div class="voice-grid">
+
+          <div class="voice-card">
+            <p class="voice-text">「毎日通うのが楽しみになりました。スタッフの方がとても明るく、施設の雰囲気も本当に素敵で、来るたびに元気をもらっています。」</p>
+            <div class="voice-meta">
+              <img
+                src="sozai/pixta_69408998_XL.jpg"
+                alt="" class="voice-avatar">
+              <div>
+                <p class="voice-name">A様（80代・女性）</p>
+                <p class="voice-role">ご利用者さま</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="voice-card">
+            <p class="voice-text">「父がここへ通うようになってから、家での表情が全然変わりました。イベントや食事を楽しみにしているようで、家族としても安心しています。」</p>
+            <div class="voice-meta">
+              <img
+                src="sozai/pixta_77971773_XL.jpg"
+                alt="" class="voice-avatar">
+              <div>
+                <p class="voice-name">B様（50代・女性）</p>
+                <p class="voice-role">ご家族さま</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="voice-card">
+            <p class="voice-text">「利用者さまの個性をきちんと見てくださっていると感じます。こだわりのある施設で、ご紹介したケアマネさんにも好評をいただいています。」</p>
+            <div class="voice-meta">
+              <img
+                src="sozai/pixta_79555662_XL.jpg"
+                alt="" class="voice-avatar">
+              <div>
+                <p class="voice-name">C様（40代）</p>
+                <p class="voice-role">ケアマネジャー</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         ⑧ News（お知らせ）
+    ============================================================ -->
+    <section class="news-section">
+      <div class="container">
+        <div class="news-head">
+          <div>
+            <span class="section-label">NEWS</span>
+            <h2>お知らせ</h2>
+          </div>
+          <a href="#" class="news-more">VIEW MORE</a>
+        </div>
+        <ul class="news-list">
+          <li class="news-item"><a href="#">
+            <span class="news-date">2026.06.16</span>
+            <span class="news-title">夏の体験見学会のご案内（7月・8月開催）</span>
+          </a></li>
+          <li class="news-item"><a href="#">
+            <span class="news-date">2026.06.10</span>
+            <span class="news-title">6月のイベントスケジュールを更新しました</span>
+          </a></li>
+          <li class="news-item"><a href="#">
+            <span class="news-date">2026.06.01</span>
+            <span class="news-title">ホームページをリニューアルしました</span>
+          </a></li>
+          <li class="news-item"><a href="#">
+            <span class="news-date">2026.05.20</span>
+            <span class="news-title">5月の端午の節句イベントを開催しました</span>
+          </a></li>
+          <li class="news-item"><a href="#">
+            <span class="news-date">2026.05.01</span>
+            <span class="news-title">春の新プログラム「フラワーアレンジメント」スタートのお知らせ</span>
+          </a></li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         ⑨ CTA
+    ============================================================ -->
+    <section class="cta-section">
+      <div class="container">
+        <span class="section-label">CONTACT</span>
+        <h2 class="cta-title">まずはお気軽にご相談ください</h2>
+        <p class="cta-desc">
+          見学予約・ご利用相談は、お電話またはフォームより承っております。<br>
+          スタッフが丁寧にご案内いたします。
+        </p>
+        <div class="cta-btns">
+          <a href="#" class="btn btn-primary btn-lg">見学を予約する</a>
+          <a href="#" class="btn btn-white btn-lg">お問い合わせフォーム</a>
+        </div>
+        <p class="cta-tel">TEL: 045-325-9251　受付時間：9:00〜18:00（月〜土）</p>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       Footer
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+
+        <!-- ブランド情報 -->
+        <div class="footer-brand">
+          <img src="sozai/logo.jpg" alt="ローレル横浜" class="footer-logo-img">
+          <p class="footer-logo-name">ローレル横浜</p>
+          <p class="footer-logo-en">LAUREL YOKOHAMA</p>
+          <p class="footer-addr">
+            〒220-0054 神奈川県横浜市西区境之谷 3-1<br>
+            日神パレステージ横濱 107<br>
+            TEL: 045-325-9251
+          </p>
+        </div>
+
+        <!-- ABOUT -->
+        <div>
+          <p class="footer-nav-label">ABOUT</p>
+          <ul class="footer-nav-list">
+            <li><a href="#">ローレル横浜について</a></li>
+            <li><a href="#">サービス内容</a></li>
+            <li><a href="#">1日の流れ</a></li>
+            <li><a href="#">選ばれる理由</a></li>
+            <li><a href="#">ご利用案内</a></li>
+          </ul>
+        </div>
+
+        <!-- INFO -->
+        <div>
+          <p class="footer-nav-label">INFO</p>
+          <ul class="footer-nav-list">
+            <li><a href="#">お知らせ</a></li>
+            <li><a href="#">イベント情報</a></li>
+            <li><a href="#">ランチ・スイーツ</a></li>
+            <li><a href="#">利用者の声</a></li>
+          </ul>
+        </div>
+
+        <!-- SUPPORT -->
+        <div>
+          <p class="footer-nav-label">SUPPORT</p>
+          <ul class="footer-nav-list">
+            <li><a href="#">よくあるご質問</a></li>
+            <li><a href="#">会社概要・その他事業</a></li>
+            <li><a href="#">お問い合わせ</a></li>
+            <li><a href="#">プライバシーポリシー</a></li>
+          </ul>
+        </div>
+
+      </div><!-- /footer-inner -->
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 株式会社カラフルK All Rights Reserved.</p>
+        <a href="#" class="footer-policy">プライバシーポリシー</a>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       JavaScript
+  ============================================================ -->
+  <script>
+    /* ── Header scroll effect ── */
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    /* ── Hero Fade Slider ── */
+    const slides   = document.querySelectorAll('.hero-slide');
+    const dots     = document.querySelectorAll('.hero-dot');
+    const counter  = document.getElementById('heroCounter');
+    let current    = 0;
+    let timer;
+
+    function goToSlide(index) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+    }
+
+    function nextSlide() {
+      goToSlide((current + 1) % slides.length);
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(nextSlide, 5000);
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        goToSlide(Number(dot.dataset.index));
+        startTimer();
+      });
+    });
+
+    startTimer();
+
+    /* ── Banner Slider ── */
+    const track        = document.getElementById('bannerTrack');
+    const prevBtn      = document.getElementById('bannerPrev');
+    const nextBtn      = document.getElementById('bannerNext');
+    const items        = document.querySelectorAll('.banner-item');
+    const visibleCount = () => window.innerWidth <= 560 ? 1 : window.innerWidth <= 860 ? 2 : 4;
+    let bannerPos  = 0;
+    let bannerTimer;
+
+    function updateBanner() {
+      const vis = visibleCount();
+      const max = items.length - vis;
+      bannerPos = Math.min(Math.max(bannerPos, 0), max);
+      const w   = items[0].getBoundingClientRect().width;
+      track.style.transform = `translateX(-${bannerPos * w}px)`;
+      prevBtn.disabled = bannerPos <= 0;
+      nextBtn.disabled = bannerPos >= max;
+    }
+
+    function startBannerTimer() {
+      clearInterval(bannerTimer);
+      bannerTimer = setInterval(() => {
+        const vis = visibleCount();
+        const max = items.length - vis;
+        bannerPos = (bannerPos >= max) ? 0 : bannerPos + 1;
+        updateBanner();
+      }, 3500);
+    }
+
+    prevBtn.addEventListener('click', () => { bannerPos--; updateBanner(); startBannerTimer(); });
+    nextBtn.addEventListener('click', () => { bannerPos++; updateBanner(); startBannerTimer(); });
+    window.addEventListener('resize', updateBanner);
+    updateBanner();
+    startBannerTimer();
+
+    /* ── Hamburger Drawer ── */
+    const hamburger    = document.getElementById('hamburger');
+    const drawer       = document.getElementById('mobileDrawer');
+    const overlay      = document.getElementById('drawerOverlay');
+    const drawerClose  = document.getElementById('drawerClose');
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      overlay.classList.add('open');
+      hamburger.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+  </script>
+
+</body>
+</html>
