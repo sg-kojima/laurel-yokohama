@@ -919,6 +919,9 @@
       .feature-img { min-height: 300px; }
       .feature-text,
       .feature-text.right { border-right: none; border-left: none; padding: 40px 24px; }
+      /* 02・04（画像が先のrow）でスマホ時にテキストを上に */
+      .feature-row .feature-img:first-child { order: 2; }
+      .feature-row .feature-img:first-child ~ .feature-text { order: 1; }
 
       .voice-grid { grid-template-columns: 1fr; gap: 24px; }
       .lunch-list { grid-template-columns: 1fr; }
