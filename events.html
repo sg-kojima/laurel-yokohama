@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イベント情報 | ローレル横浜</title>
+  <meta name="description" content="ローレル横浜のイベント情報ページです。施設内で行われるレクリエーションや季節のイベントをご紹介します。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       CSS変数
+    ============================================================ */
+    :root {
+      --pink: #c2187e;
+      --pink-pale: #fce8f3;
+      --pink-light: #f5afd4;
+      --purple: #7b2d8b;
+      --bg: #ffffff;
+      --bg-muted: #fdf5f9;
+      --text: #2a1a2e;
+      --text-sub: #6b5570;
+      --text-soft: #a090a8;
+      --border: #ebd5e5;
+      --font-main: 'Noto Sans JP', "Hiragino Sans", "Yu Gothic", sans-serif;
+      --font-round: 'M PLUS Rounded 1c', "Hiragino Sans", sans-serif;
+      --font-mono: 'Courier New', monospace;
+      --max-w: 1200px;
+    }
+
+    /* ============================================================
+       リセット・ベース
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 18px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.9;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ============================================================
+       ユーティリティ
+    ============================================================ */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ============================================================
+       サイトヘッダー
+    ============================================================ */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+
+    .site-header.scrolled {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .header-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      height: 68px;
+      gap: 40px;
+    }
+
+    /* ロゴ */
+    .site-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .site-logo img {
+      height: 42px;
+      width: auto;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .logo-text-ja {
+      font-family: var(--font-round);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+    }
+
+    .logo-text-en {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-soft);
+      letter-spacing: 0.12em;
+      line-height: 1.2;
+    }
+
+    /* デスクトップナビ */
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-left: auto;
+    }
+
+    .nav-item {
+      position: relative;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-sub);
+      padding: 0 14px;
+      white-space: nowrap;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 100%;
+    }
+
+    .nav-link.active {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .nav-link .caret {
+      font-size: 0.6rem;
+      opacity: 0.6;
+    }
+
+    /* ドロップダウン */
+    .nav-item .dropdown {
+      display: none;
+      position: absolute;
+      top: 68px;
+      left: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--pink);
+      min-width: 200px;
+      z-index: 200;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-item:hover .dropdown {
+      display: block;
+    }
+
+    .nav-item:hover > .nav-link {
+      color: var(--pink);
+    }
+
+    .nav-item .dropdown ul {
+      list-style: none;
+    }
+
+    .nav-item .dropdown li {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-item .dropdown li:last-child {
+      border-bottom: none;
+    }
+
+    .nav-item .dropdown a {
+      display: block;
+      padding: 13px 18px;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+
+    .nav-item .dropdown a:hover {
+      background: var(--bg-muted);
+      color: var(--pink);
+    }
+
+    .nav-item .dropdown a.current-page {
+      color: var(--pink);
+      font-weight: 700;
+      background: var(--pink-pale);
+    }
+
+    /* CTAボタン */
+    .nav-cta {
+      margin-left: 12px;
+      flex-shrink: 0;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      background: var(--pink);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 4px;
+      white-space: nowrap;
+      transition: background 0.2s, opacity 0.2s;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-cta:hover {
+      background: var(--purple);
+    }
+
+    /* ハンバーガー */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      margin-left: auto;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* モバイルドロワー */
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.98);
+      z-index: 900;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-nav {
+      padding: 32px 24px 48px;
+    }
+
+    .drawer-nav-group {
+      border-bottom: 1px solid var(--border);
+      padding: 8px 0;
+    }
+
+    .drawer-nav-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      padding: 12px 4px;
+      display: block;
+    }
+
+    .drawer-nav-label.active {
+      color: var(--pink);
+    }
+
+    .drawer-sub-link {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      padding: 10px 16px;
+    }
+
+    .drawer-sub-link.current-page {
+      color: var(--pink);
+      font-weight: 700;
+    }
+
+    .drawer-cta {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .drawer-cta .btn-cta {
+      width: 100%;
+      padding: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* ============================================================
+       ページヒーロー
+    ============================================================ */
+    .page-hero {
+      position: relative;
+      height: 280px;
+      margin-top: 68px;
+      overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('sozai/pixta_54616556_XL.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .page-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .page-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-soft);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .page-breadcrumb a {
+      transition: color 0.2s;
+    }
+
+    .page-breadcrumb a:hover {
+      color: var(--pink);
+    }
+
+    .page-breadcrumb span {
+      margin: 0 6px;
+      opacity: 0.5;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--pink);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-round);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    /* ============================================================
+       イベント一覧セクション
+    ============================================================ */
+    .events-section {
+      padding: 110px 0;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 52px 32px;
+    }
+
+    /* イベントカード */
+    .event-card {
+      display: block;
+      color: inherit;
+    }
+
+    .event-card:hover .card-title {
+      color: var(--pink);
+    }
+
+    .card-image-wrap {
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+    }
+
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .event-card:hover .card-image-wrap img {
+      transform: scale(1.04);
+    }
+
+    .card-body {
+      padding: 20px 0;
+    }
+
+    .card-date {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+      letter-spacing: 0.08em;
+    }
+
+    .card-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.55;
+      margin-bottom: 10px;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      line-height: 1.75;
+    }
+
+    /* ============================================================
+       ページネーション
+    ============================================================ */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 88px;
+    }
+
+    .page-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      background: #fff;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      text-decoration: none;
+    }
+
+    .page-btn:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+    }
+
+    .page-btn.active {
+      background: var(--pink);
+      color: #fff;
+      border-color: var(--pink);
+    }
+
+    .page-btn.nav-btn {
+      font-size: 0.9rem;
+    }
+
+    /* ============================================================
+       フッター
+    ============================================================ */
+    .site-footer {
+      background: #1a0820;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 72px 0 40px;
+    }
+
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+
+    .footer-brand .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo-img {
+      display: inline-block;
+      height: 40px;
+      width: auto;
+      max-width: none;
+      filter: brightness(0) invert(1) opacity(.6);
+    }
+
+    .footer-brand .logo-text-ja {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .footer-brand .logo-text-en {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .footer-brand p {
+      font-size: 0.72rem;
+      line-height: 1.85;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--pink-light);
+    }
+
+    .footer-bottom {
+      max-width: var(--max-w);
+      margin: 48px auto 0;
+      padding: 24px 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 0.08em;
+    }
+
+    /* ============================================================
+       レスポンシブ
+    ============================================================ */
+    @media (max-width: 860px) {
+      html {
+        font-size: 16px;
+      }
+
+      .container {
+        padding: 0 24px;
+      }
+
+      .header-inner {
+        padding: 0 24px;
+      }
+
+      .main-nav {
+        display: none;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-drawer {
+        display: block;
+      }
+
+      .page-hero {
+        height: 220px;
+      }
+
+      .events-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 24px;
+      }
+
+      .events-section {
+        padding: 80px 0;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        padding: 0 24px;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+
+      .footer-bottom {
+        padding: 24px 24px 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .events-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .page-hero {
+        height: 200px;
+      }
+
+      .events-section {
+        padding: 64px 0;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .pagination {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       サイトヘッダー
+  ============================================================ -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+
+      <a href="index.html" class="site-logo">
+        <img src="sozai/logo.jpg" alt="ローレル横浜ロゴ">
+        <div class="logo-text">
+          <span class="logo-text-ja">ローレル横浜</span>
+          <span class="logo-text-en">LAUREL YOKOHAMA</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="メインナビゲーション">
+
+        <div class="nav-item">
+          <a href="#" class="nav-link">施設について <span class="caret">&#9660;</span></a>
+          <div class="dropdown">
+            <ul>
+              <li><a href="#">ローレル横浜について</a></li>
+              <li><a href="#">1日の流れ</a></li>
+              <li><a href="#">利用者の声</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="#" class="nav-link">サービス内容</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="#" class="nav-link">選ばれる理由</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="#" class="nav-link">ご利用案内 <span class="caret">&#9660;</span></a>
+          <div class="dropdown">
+            <ul>
+              <li><a href="#">ご利用案内</a></li>
+              <li><a href="#">よくあるご質問</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="#" class="nav-link active">お知らせ <span class="caret">&#9660;</span></a>
+          <div class="dropdown">
+            <ul>
+              <li><a href="#">お知らせ</a></li>
+              <li><a href="events.html" class="current-page">イベント情報</a></li>
+              <li><a href="#">ランチ・スイーツ</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </nav>
+
+      <div class="nav-cta">
+        <a href="#" class="btn-cta">お問い合わせ</a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <nav class="drawer-nav">
+
+      <div class="drawer-nav-group">
+        <span class="drawer-nav-label">施設について</span>
+        <a href="#" class="drawer-sub-link">ローレル横浜について</a>
+        <a href="#" class="drawer-sub-link">1日の流れ</a>
+        <a href="#" class="drawer-sub-link">利用者の声</a>
+      </div>
+
+      <div class="drawer-nav-group">
+        <a href="#" class="drawer-nav-label">サービス内容</a>
+      </div>
+
+      <div class="drawer-nav-group">
+        <a href="#" class="drawer-nav-label">選ばれる理由</a>
+      </div>
+
+      <div class="drawer-nav-group">
+        <span class="drawer-nav-label">ご利用案内</span>
+        <a href="#" class="drawer-sub-link">ご利用案内</a>
+        <a href="#" class="drawer-sub-link">よくあるご質問</a>
+      </div>
+
+      <div class="drawer-nav-group">
+        <span class="drawer-nav-label active">お知らせ</span>
+        <a href="#" class="drawer-sub-link">お知らせ</a>
+        <a href="events.html" class="drawer-sub-link current-page">イベント情報</a>
+        <a href="#" class="drawer-sub-link">ランチ・スイーツ</a>
+      </div>
+
+      <div class="drawer-cta">
+        <a href="#" class="btn-cta">お問い合わせ</a>
+      </div>
+
+    </nav>
+  </div>
+
+  <!-- ============================================================
+       ページヒーロー
+  ============================================================ -->
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <p class="page-breadcrumb">
+        <a href="index.html">HOME</a>
+        <span>/</span>
+        イベント情報
+      </p>
+      <span class="section-label">EVENT</span>
+      <h1>イベント情報</h1>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       イベント一覧
+  ============================================================ -->
+  <main>
+    <section class="events-section">
+      <div class="container">
+
+        <div class="events-grid">
+
+          <a href="events_detail.html" class="event-card">
+            <div class="card-image-wrap">
+              <img src="sozai/pixta_38241171_XL.jpg" alt="夏の外出レク「三渓園の散策」開催報告">
+            </div>
+            <div class="card-body">
+              <p class="card-date">2026.06.12</p>
+              <p class="card-title">夏の外出レク「三渓園の散策」開催報告</p>
+              <p class="card-desc">横浜の名勝・三渓園をみんなで散策しました。梅雨の合間の晴天に恵まれ、緑と歴史的建造物を楽しみました。</p>
+            </div>
+          </a>
+
+          <a href="events_detail.html" class="event-card">
+            <div class="card-image-wrap">
+              <img src="sozai/pixta_31434843_XL.jpg" alt="フラワーアレンジメントクラブ 6月の作品発表">
+            </div>
+            <div class="card-body">
+              <p class="card-date">2026.06.08</p>
+              <p class="card-title">フラワーアレンジメントクラブ 6月の作品発表</p>
+              <p class="card-desc">今月のフラワーアレンジメントは「あじさいとガーベラ」をテーマに。色とりどりの作品が完成しました。</p>
+            </div>
+          </a>
+
+          <a href="events_detail.html" class="event-card">
+            <div class="card-image-wrap">
+              <img src="sozai/pixta_92159488_XL.jpg" alt="ローレル横浜ホームページリニューアル記念 無料見学会">
+            </div>
+            <div class="card-body">
+              <p class="card-date">2026.06.01</p>
+              <p class="card-title">ローレル横浜ホームページリニューアル記念 無料見学会</p>
+              <p class="card-desc">新しいホームページ公開を記念した無料見学会を開催します。施設内を自由にご見学いただけます。</p>
+            </div>
+          </a>
+
+          <a href="events_detail.html" class="event-card">
+            <div class="card-image-wrap">
+              <img src="sozai/pixta_38790267_XL.jpg" alt="端午の節句お祝い会">
+            </div>
+            <div class="card-body">
+              <p class="card-date">2026.05.25</p>
+              <p class="card-title">端午の節句お祝い会 〜 兜飾りと柏餅で季節を楽しむ</p>
+              <p class="card-desc">5月の節句を施設みんなでお祝い。柏餅を手作りし、兜飾りを囲んだ和やかなひとときをすごしました。</p>
+            </div>
+          </a>
+
+          <a href="events_detail.html" class="event-card">
+            <div class="card-image-wrap">
+              <img src="sozai/pixta_69408998_XL.jpg" alt="母の日スペシャルプログラム カーネーション手作りコーナー">
+            </div>
+            <div class="card-body">
+              <p class="card-date">2026.05.18</p>
+              <p class="card-title">母の日スペシャルプログラム カーネーション手作りコーナー</p>
+              <p class="card-desc">母の日に感謝を込めてカーネーションのペーパークラフトを制作。ご家族へのプレゼントにも喜ばれました。</p>
+            </div>
+          </a>
+
+          <a href="events_detail.html" class="event-card">
+            <div class="card-image-wrap">
+              <img src="sozai/pixta_77971773_XL.jpg" alt="春の体操フェスティバル">
+            </div>
+            <div class="card-body">
+              <p class="card-date">2026.05.10</p>
+              <p class="card-title">春の体操フェスティバル 〜 身体を動かして元気に！</p>
+              <p class="card-desc">専門スタッフによる体操とストレッチのフェスティバルを開催。楽しみながら機能訓練に取り組みました。</p>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- ページネーション -->
+        <nav class="pagination" aria-label="ページネーション">
+          <a href="#" class="page-btn nav-btn" aria-label="前のページ">&#9651;</a>
+          <a href="#" class="page-btn active" aria-current="page">1</a>
+          <a href="#" class="page-btn">2</a>
+          <a href="#" class="page-btn">3</a>
+          <span class="page-btn" style="border:none;color:var(--text-soft);cursor:default;">...</span>
+          <a href="#" class="page-btn">25</a>
+          <a href="#" class="page-btn nav-btn" aria-label="次のページ">&#9661;</a>
+        </nav>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       フッター
+  ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="sozai/logo.jpg" alt="ローレル横浜ロゴ" class="footer-logo-img">
+          <div class="logo-text">
+            <span class="logo-text-ja">ローレル横浜</span>
+            <span class="logo-text-en">LAUREL YOKOHAMA</span>
+          </div>
+        </div>
+        <p>
+          〒xxx-xxxx 神奈川県横浜市〇〇区〇〇町x-x<br>
+          TEL: 045-xxx-xxxx　FAX: 045-xxx-xxxx<br>
+          受付時間: 月〜土 8:00〜18:00
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>ABOUT</h4>
+        <ul>
+          <li><a href="#">ローレル横浜について</a></li>
+          <li><a href="#">1日の流れ</a></li>
+          <li><a href="#">利用者の声</a></li>
+          <li><a href="#">サービス内容</a></li>
+          <li><a href="#">選ばれる理由</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>INFO</h4>
+        <ul>
+          <li><a href="#">ご利用案内</a></li>
+          <li><a href="#">よくあるご質問</a></li>
+          <li><a href="#">お知らせ</a></li>
+          <li><a href="events.html">イベント情報</a></li>
+          <li><a href="#">ランチ・スイーツ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>SUPPORT</h4>
+        <ul>
+          <li><a href="#">お問い合わせ</a></li>
+          <li><a href="#">無料見学のご予約</a></li>
+          <li><a href="#">プライバシーポリシー</a></li>
+          <li><a href="#">サイトマップ</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 LAUREL YOKOHAMA. All rights reserved.</p>
+      <p style="font-family:var(--font-mono);font-size:0.62rem;color:rgba(255,255,255,0.2);">LAUREL YOKOHAMA</p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JavaScript
+  ============================================================ -->
+  <script>
+    // ヘッダー スクロールエフェクト
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // ハンバーガー ドロワー
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('mobile-drawer');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      drawer.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      drawer.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    drawer.addEventListener('click', (e) => {
+      if (e.target === drawer) {
+        hamburger.classList.remove('open');
+        drawer.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+
+</body>
+</html>

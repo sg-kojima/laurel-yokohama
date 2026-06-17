@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お知らせ ｜ ローレル横浜</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --pink:       #c2187e;
+      --pink-pale:  #fce8f3;
+      --purple:     #7b2d8b;
+      --bg:         #ffffff;
+      --bg-muted:   #fdf5f9;
+      --text:       #2a1a2e;
+      --text-sub:   #6b5570;
+      --text-soft:  #a090a8;
+      --border:     #ebd5e5;
+      --font-main:  'Noto Sans JP', "Hiragino Sans", "Yu Gothic", sans-serif;
+      --font-round: 'M PLUS Rounded 1c', "Hiragino Sans", sans-serif;
+      --font-mono:  'Courier New', monospace;
+      --max-w:      1200px;
+    }
+    html { font-size: 18px; scroll-behavior: smooth; }
+    body { font-family: var(--font-main); line-height: 1.9; color: var(--text); background: var(--bg); }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; height: auto; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 48px; }
+    .section-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.22em; color: var(--pink); text-transform: uppercase; display: block; margin-bottom: 14px; }
+    .btn { display: inline-block; padding: 14px 40px; font-size: 0.83rem; letter-spacing: 0.08em; font-family: var(--font-main); cursor: pointer; transition: all 0.22s; border: none; line-height: 1; }
+    .btn-primary { background: var(--pink); color: #fff; border: 1px solid var(--pink); }
+    .btn-primary:hover { background: #a51268; border-color: #a51268; }
+    .btn-white { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.65); }
+    .btn-white:hover { background: rgba(255,255,255,.14); }
+    .btn-lg { padding: 18px 56px; font-size: 0.88rem; }
+
+    /* ── Header ── */
+    .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.97); border-bottom: 1px solid var(--border); transition: box-shadow .3s; }
+    .site-header.scrolled { box-shadow: 0 2px 24px rgba(194,24,126,.09); }
+    .header-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .site-logo { display: flex; align-items: center; gap: 10px; }
+    .logo-img { height: 44px; width: auto; }
+    .logo-texts { line-height: 1.2; }
+    .logo-ja { font-family: var(--font-round); font-size: 0.95rem; font-weight: 700; color: var(--pink); letter-spacing: 0.04em; }
+    .logo-en { font-family: var(--font-mono); font-size: 0.55rem; color: var(--text-soft); letter-spacing: 0.18em; }
+    .main-nav { display: flex; align-items: center; gap: 28px; }
+    .nav-link { font-size: 0.78rem; color: var(--text-sub); letter-spacing: 0.04em; white-space: nowrap; transition: color .2s; }
+    .nav-link:hover { color: var(--pink); }
+    .nav-cta { padding: 9px 22px; background: var(--pink); color: #fff; font-size: 0.75rem; letter-spacing: 0.06em; transition: background .2s; }
+    .nav-cta:hover { background: #a51268; color: #fff; }
+    .nav-item { position: relative; height: 68px; display: flex; align-items: center; }
+    .nav-item .dropdown { display: none; position: absolute; top: 68px; left: 0; background: #fff; border: 1px solid var(--border); border-top: 2px solid var(--pink); min-width: 200px; z-index: 200; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .nav-item:hover .dropdown { display: block; }
+    .nav-item:hover > .nav-link { color: var(--pink); }
+    .nav-item .dropdown ul { list-style: none; }
+    .nav-item .dropdown li { border-bottom: 1px solid var(--border); }
+    .nav-item .dropdown li:last-child { border-bottom: none; }
+    .nav-item .dropdown a { display: block; padding: 13px 18px; font-size: 0.78rem; color: var(--text-sub); white-space: nowrap; transition: background .15s, color .15s; }
+    .nav-item .dropdown a:hover { background: var(--bg-muted); color: var(--pink); }
+    .hamburger { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 44px; height: 44px; cursor: pointer; background: none; border: none; padding: 0; z-index: 200; color: var(--text); }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: currentColor; transition: transform .3s, opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-drawer { position: fixed; top: 0; right: 0; width: 280px; height: 100%; background: var(--purple); z-index: 300; transform: translateX(100%); transition: transform .35s cubic-bezier(.16,1,.3,1); padding: 80px 36px 48px; }
+    .mobile-drawer.open { transform: translateX(0); }
+    .drawer-close { position: absolute; top: 22px; right: 22px; background: none; border: none; cursor: pointer; font-size: 18px; color: rgba(255,255,255,.65); padding: 8px; }
+    .drawer-nav { display: flex; flex-direction: column; }
+    .drawer-nav a { font-size: 13px; letter-spacing: .08em; color: rgba(255,255,255,.82); padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.12); transition: color .2s; }
+    .drawer-nav a:last-child { border-bottom: none; }
+    .drawer-nav a:hover { color: #fff; }
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 290; opacity: 0; pointer-events: none; transition: opacity .35s; }
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+    /* ── Page Hero ── */
+    .page-hero { position: relative; height: 280px; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-top: 68px; }
+    .page-hero-bg { position: absolute; inset: 0; }
+    .page-hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .page-hero-bg::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.65); }
+    .page-hero-body { position: relative; z-index: 1; text-align: center; }
+    .breadcrumb { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; color: var(--text-soft); margin-bottom: 20px; }
+    .breadcrumb a:hover { color: var(--pink); }
+    .page-hero-body h1 { font-family: var(--font-round); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; line-height: 1.3; color: var(--text); }
+
+    /* ── News List ── */
+    .news-list-section { padding: 110px 0; }
+    .news-list { border-top: 1px solid var(--border); }
+    .news-article { border-bottom: 1px solid var(--border); }
+    .news-article a { display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; padding: 44px 0; transition: color .2s; }
+    .news-article a:hover .news-title { color: var(--pink); }
+    .news-article.no-img a { display: block; }
+    .news-text { flex: 1; }
+    .news-date { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-soft); letter-spacing: 0.08em; display: block; margin-bottom: 14px; }
+    .news-title { font-size: 1rem; font-weight: 700; line-height: 1.6; margin-bottom: 14px; color: var(--text); transition: color .2s; }
+    .news-excerpt { font-size: 0.82rem; color: var(--text-sub); line-height: 1.9; }
+    .news-img { width: 280px; flex-shrink: 0; }
+    .news-img img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+
+    /* ── Pagination ── */
+    .news-pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 72px; padding-top: 40px; border-top: 1px solid var(--border); }
+    .page-nav-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-sub); border: 1px solid var(--border); padding: 10px 24px; transition: border-color .2s, color .2s; }
+    .page-nav-btn:hover { border-color: var(--pink); color: var(--pink); }
+    .page-count { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-soft); }
+
+    /* ── CTA ── */
+    .cta-section { background: var(--text); padding: 100px 0; text-align: center; }
+    .cta-section .section-label { color: rgba(255,255,255,.35); }
+    .cta-title { font-family: var(--font-round); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 700; color: #fff; line-height: 1.5; margin-bottom: 16px; }
+    .cta-desc { font-size: 0.85rem; color: rgba(255,255,255,.5); margin-bottom: 48px; line-height: 1.9; }
+    .cta-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+    .cta-tel { font-family: var(--font-mono); font-size: 0.72rem; color: rgba(255,255,255,.3); letter-spacing: 0.1em; }
+
+    /* ── Footer ── */
+    footer { background: #1a0820; color: rgba(255,255,255,.35); padding: 72px 0 36px; }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 56px; margin-bottom: 56px; }
+    .footer-logo-img { display: inline-block; height: 40px; width: auto; max-width: none; margin-bottom: 16px; filter: brightness(0) invert(1) opacity(.6); }
+    .footer-logo-name { font-family: var(--font-round); font-size: 0.92rem; font-weight: 700; color: rgba(255,255,255,.75); margin-bottom: 4px; }
+    .footer-logo-en { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.18em; color: rgba(255,255,255,.2); margin-bottom: 20px; }
+    .footer-addr { font-size: 0.72rem; line-height: 1.9; }
+    .footer-nav-label { font-size: 0.7rem; font-weight: 700; color: rgba(255,255,255,.55); letter-spacing: 0.08em; margin-bottom: 18px; }
+    .footer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-nav-list a { font-size: 0.7rem; color: rgba(255,255,255,.35); transition: color .2s; }
+    .footer-nav-list a:hover { color: rgba(255,255,255,.75); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.06); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,.2); }
+    .footer-policy { font-size: 11px; color: rgba(255,255,255,.2); transition: color .2s; }
+    .footer-policy:hover { color: rgba(255,255,255,.5); }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      html { font-size: 16px; }
+      .container { padding: 0 24px; }
+      .main-nav { display: none; }
+      .hamburger { display: flex; }
+      .header-inner { padding: 0 24px; }
+      .news-article a { flex-direction: column-reverse; gap: 24px; }
+      .news-img { width: 100%; }
+      .news-pagination { flex-direction: column; gap: 20px; align-items: center; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .cta-btns { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <img src="sozai/logo.jpg" alt="ローレル横浜ロゴ" class="logo-img">
+        <div class="logo-texts">
+          <div class="logo-ja">ローレル横浜</div>
+          <div class="logo-en">LAUREL YOKOHAMA</div>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <div class="nav-item">
+          <a href="#" class="nav-link">施設について ▾</a>
+          <div class="dropdown"><ul>
+            <li><a href="#">ローレル横浜について</a></li>
+            <li><a href="#">1日の流れ</a></li>
+            <li><a href="#">利用者の声</a></li>
+          </ul></div>
+        </div>
+        <a href="#" class="nav-link">サービス内容</a>
+        <a href="#" class="nav-link">選ばれる理由</a>
+        <div class="nav-item">
+          <a href="#" class="nav-link">ご利用案内 ▾</a>
+          <div class="dropdown"><ul>
+            <li><a href="#">ご利用案内</a></li>
+            <li><a href="#">よくあるご質問</a></li>
+          </ul></div>
+        </div>
+        <div class="nav-item">
+          <a href="#" class="nav-link" style="color:var(--pink); font-weight:700;">お知らせ ▾</a>
+          <div class="dropdown"><ul>
+            <li><a href="news.html" style="color:var(--pink); font-weight:700;">お知らせ</a></li>
+            <li><a href="events.html">イベント情報</a></li>
+            <li><a href="lunch.html">ランチ・スイーツ</a></li>
+          </ul></div>
+        </div>
+        <a href="#" class="nav-cta">お問い合わせ</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobileDrawer">
+    <button class="drawer-close" id="drawerClose">✕</button>
+    <nav class="drawer-nav">
+      <a href="#">施設について</a>
+      <a href="#">サービス内容</a>
+      <a href="#">選ばれる理由</a>
+      <a href="#">ご利用案内</a>
+      <a href="news.html">お知らせ</a>
+      <a href="events.html">イベント情報</a>
+      <a href="lunch.html">ランチ・スイーツ</a>
+      <a href="#">お問い合わせ</a>
+    </nav>
+  </div>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <section class="page-hero">
+    <div class="page-hero-bg">
+      <img src="sozai/pixta_79555662_XL.jpg" alt="お知らせ">
+    </div>
+    <div class="page-hero-body">
+      <p class="breadcrumb"><a href="index.html">HOME</a> &nbsp;/&nbsp; お知らせ</p>
+      <span class="section-label">NEWS</span>
+      <h1>お知らせ</h1>
+    </div>
+  </section>
+
+  <main>
+    <section class="news-list-section">
+      <div class="container">
+        <div class="news-list">
+
+          <article class="news-article">
+            <a href="#">
+              <div class="news-text">
+                <span class="news-date">2026.06.16</span>
+                <h2 class="news-title">夏の体験見学会のご案内（7月・8月開催）</h2>
+                <p class="news-excerpt">今年も夏の体験見学会を開催いたします。施設内のご見学やスタッフとの個別相談も承っております。ご家族の方もぜひご一緒にお越しください。</p>
+              </div>
+              <div class="news-img">
+                <img src="sozai/pixta_69408998_XL.jpg" alt="体験見学会">
+              </div>
+            </a>
+          </article>
+
+          <article class="news-article no-img">
+            <a href="#">
+              <div class="news-text">
+                <span class="news-date">2026.06.10</span>
+                <h2 class="news-title">6月のイベントスケジュールを更新しました</h2>
+                <p class="news-excerpt">6月のクラブ活動・外出レク・季節イベントのスケジュールを掲載しました。詳細はイベント情報ページをご覧ください。</p>
+              </div>
+            </a>
+          </article>
+
+          <article class="news-article">
+            <a href="#">
+              <div class="news-text">
+                <span class="news-date">2026.06.01</span>
+                <h2 class="news-title">ホームページをリニューアルしました</h2>
+                <p class="news-excerpt">この度、ローレル横浜のホームページをリニューアルいたしました。より見やすく、わかりやすい情報提供を目指してまいります。今後ともよろしくお願い申し上げます。</p>
+              </div>
+              <div class="news-img">
+                <img src="sozai/pixta_92159488_XL.jpg" alt="リニューアル">
+              </div>
+            </a>
+          </article>
+
+          <article class="news-article no-img">
+            <a href="#">
+              <div class="news-text">
+                <span class="news-date">2026.05.20</span>
+                <h2 class="news-title">5月の端午の節句イベントを開催しました</h2>
+                <p class="news-excerpt">5月5日のこどもの日にちなみ、兜飾りを囲んでのお祝いの会を開催しました。利用者の皆さまに大変喜んでいただけました。</p>
+              </div>
+            </a>
+          </article>
+
+          <article class="news-article">
+            <a href="#">
+              <div class="news-text">
+                <span class="news-date">2026.05.01</span>
+                <h2 class="news-title">春の新プログラム「フラワーアレンジメント」スタートのお知らせ</h2>
+                <p class="news-excerpt">4月より新しいクラブ活動「フラワーアレンジメント」がスタートしました。毎週水曜日の午後に行います。参加ご希望の方はスタッフまでお申し付けください。</p>
+              </div>
+              <div class="news-img">
+                <img src="sozai/pixta_77971773_XL.jpg" alt="フラワーアレンジメント">
+              </div>
+            </a>
+          </article>
+
+        </div>
+
+        <div class="news-pagination">
+          <a href="#" class="page-nav-btn">‹ 前のページ</a>
+          <p class="page-count">1 / 10</p>
+          <a href="#" class="page-nav-btn">次のページ ›</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <span class="section-label">CONTACT</span>
+        <h2 class="cta-title">まずはお気軽にご相談ください</h2>
+        <p class="cta-desc">見学予約・ご利用相談は、お電話またはフォームより承っております。<br>スタッフが丁寧にご案内いたします。</p>
+        <div class="cta-btns">
+          <a href="#" class="btn btn-primary btn-lg">見学を予約する</a>
+          <a href="#" class="btn btn-white btn-lg">お問い合わせフォーム</a>
+        </div>
+        <p class="cta-tel">TEL: 045-325-9251　受付時間：9:00〜18:00（月〜土）</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="sozai/logo.jpg" alt="ローレル横浜" class="footer-logo-img">
+          <p class="footer-logo-name">ローレル横浜</p>
+          <p class="footer-logo-en">LAUREL YOKOHAMA</p>
+          <p class="footer-addr">〒220-0054 神奈川県横浜市西区境之谷 3-1<br>日神パレステージ横濱 107<br>TEL: 045-325-9251</p>
+        </div>
+        <div>
+          <p class="footer-nav-label">ABOUT</p>
+          <ul class="footer-nav-list">
+            <li><a href="#">ローレル横浜について</a></li>
+            <li><a href="#">サービス内容</a></li>
+            <li><a href="#">1日の流れ</a></li>
+            <li><a href="#">選ばれる理由</a></li>
+            <li><a href="#">ご利用案内</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-nav-label">INFO</p>
+          <ul class="footer-nav-list">
+            <li><a href="news.html">お知らせ</a></li>
+            <li><a href="events.html">イベント情報</a></li>
+            <li><a href="lunch.html">ランチ・スイーツ</a></li>
+            <li><a href="#">利用者の声</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-nav-label">SUPPORT</p>
+          <ul class="footer-nav-list">
+            <li><a href="#">よくあるご質問</a></li>
+            <li><a href="#">会社概要・その他事業</a></li>
+            <li><a href="#">お問い合わせ</a></li>
+            <li><a href="#">プライバシーポリシー</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 株式会社カラフルK All Rights Reserved.</p>
+        <a href="#" class="footer-policy">プライバシーポリシー</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 10); });
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('mobileDrawer');
+    const overlay = document.getElementById('drawerOverlay');
+    const drawerClose = document.getElementById('drawerClose');
+    function openDrawer() { drawer.classList.add('open'); overlay.classList.add('open'); hamburger.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+  </script>
+
+</body>
+</html>
