@@ -429,6 +429,51 @@
     }
 
     /* ============================================================
+       カテゴリフィルター
+    ============================================================ */
+    .category-filter {
+      background: var(--bg-muted);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+    }
+    .filter-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 14px;
+    }
+    .filter-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .cat-btn {
+      padding: 8px 18px;
+      font-size: 0.75rem;
+      font-family: var(--font-main);
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text-sub);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background .18s, color .18s, border-color .18s;
+      line-height: 1;
+    }
+    .cat-btn:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+    }
+    .cat-btn.active {
+      background: var(--pink);
+      border-color: var(--pink);
+      color: #fff;
+    }
+    .event-card.hidden { display: none; }
+
+    /* ============================================================
        イベント一覧セクション
     ============================================================ */
     .events-section {
@@ -841,13 +886,35 @@
   <!-- ============================================================
        イベント一覧
   ============================================================ -->
+  <!-- カテゴリフィルター -->
+  <div class="category-filter">
+    <div class="container">
+      <span class="filter-label">CATEGORY</span>
+      <div class="filter-btns" id="filterBtns">
+        <button class="cat-btn active" data-cat="all">すべて</button>
+        <button class="cat-btn" data-cat="正月">お正月</button>
+        <button class="cat-btn" data-cat="節分">節分</button>
+        <button class="cat-btn" data-cat="オープン記念">4月オープン記念</button>
+        <button class="cat-btn" data-cat="雛様">お雛様</button>
+        <button class="cat-btn" data-cat="鯉のぼり">鯉のぼり</button>
+        <button class="cat-btn" data-cat="母の日">母の日</button>
+        <button class="cat-btn" data-cat="梅雨">梅雨イベント</button>
+        <button class="cat-btn" data-cat="夏祭り">夏祭り</button>
+        <button class="cat-btn" data-cat="プラチナ">プラチナ</button>
+        <button class="cat-btn" data-cat="ハロウィン">ハロウィン</button>
+        <button class="cat-btn" data-cat="クリスマス">クリスマス</button>
+        <button class="cat-btn" data-cat="その他">その他</button>
+      </div>
+    </div>
+  </div>
+
   <main>
     <section class="events-section">
       <div class="container">
 
-        <div class="events-grid">
+        <div class="events-grid" id="eventsGrid">
 
-          <a href="events_detail.html" class="event-card">
+          <a href="events_detail.html" class="event-card" data-category="梅雨">
             <div class="card-image-wrap">
               <img src="sozai/pixta_38241171_XL.jpg" alt="夏の外出レク「三渓園の散策」開催報告">
             </div>
@@ -858,7 +925,7 @@
             </div>
           </a>
 
-          <a href="events_detail.html" class="event-card">
+          <a href="events_detail.html" class="event-card" data-category="梅雨">
             <div class="card-image-wrap">
               <img src="sozai/pixta_31434843_XL.jpg" alt="フラワーアレンジメントクラブ 6月の作品発表">
             </div>
@@ -869,7 +936,7 @@
             </div>
           </a>
 
-          <a href="events_detail.html" class="event-card">
+          <a href="events_detail.html" class="event-card" data-category="その他">
             <div class="card-image-wrap">
               <img src="sozai/pixta_92159488_XL.jpg" alt="ローレル横浜ホームページリニューアル記念 無料見学会">
             </div>
@@ -880,7 +947,7 @@
             </div>
           </a>
 
-          <a href="events_detail.html" class="event-card">
+          <a href="events_detail.html" class="event-card" data-category="鯉のぼり">
             <div class="card-image-wrap">
               <img src="sozai/pixta_38790267_XL.jpg" alt="端午の節句お祝い会">
             </div>
@@ -891,7 +958,7 @@
             </div>
           </a>
 
-          <a href="events_detail.html" class="event-card">
+          <a href="events_detail.html" class="event-card" data-category="母の日">
             <div class="card-image-wrap">
               <img src="sozai/pixta_69408998_XL.jpg" alt="母の日スペシャルプログラム カーネーション手作りコーナー">
             </div>
@@ -902,7 +969,7 @@
             </div>
           </a>
 
-          <a href="events_detail.html" class="event-card">
+          <a href="events_detail.html" class="event-card" data-category="その他">
             <div class="card-image-wrap">
               <img src="sozai/pixta_77971773_XL.jpg" alt="春の体操フェスティバル">
             </div>
@@ -957,7 +1024,7 @@
           <li><a href="#">ローレル横浜について</a></li>
           <li><a href="#">1日の流れ</a></li>
           <li><a href="#">利用者の声</a></li>
-          <li><a href="#">サービス内容</a></li>
+          <li><a href="#">サービス・料金</a></li>
           <li><a href="#">選ばれる理由</a></li>
         </ul>
       </div>
@@ -970,6 +1037,7 @@
           <li><a href="news.html">お知らせ</a></li>
           <li><a href="events.html">イベント情報</a></li>
           <li><a href="lunch.html">ランチ・スイーツ</a></li>
+          <li><a href="#">ハッピースマイル</a></li>
         </ul>
       </div>
 
@@ -995,6 +1063,26 @@
        JavaScript
   ============================================================ -->
   <script>
+    // カテゴリフィルター
+    const filterBtns = document.querySelectorAll('#filterBtns .cat-btn');
+    const eventCards = document.querySelectorAll('#eventsGrid .event-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const cat = btn.dataset.cat;
+        eventCards.forEach(card => {
+          if (cat === 'all' || (card.dataset.category && card.dataset.category.includes(cat))) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
     // ヘッダー スクロールエフェクト
     const header = document.getElementById('site-header');
     window.addEventListener('scroll', () => {

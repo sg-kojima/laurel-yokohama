@@ -756,30 +756,43 @@
     }
     .news-more:hover { color: #a51268; border-color: #a51268; }
 
-    .news-list { border-top: 1px solid var(--border); }
-    .news-item {
-      border-bottom: 1px solid var(--border);
-    }
-    .news-item a {
-      display: flex;
-      align-items: baseline;
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 32px;
-      padding: 22px 0;
-      transition: color .2s;
     }
-    .news-item a:hover { color: var(--pink); }
+    .news-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: block;
+      transition: box-shadow .25s;
+    }
+    .news-card:hover { box-shadow: 0 4px 24px rgba(194,24,126,.1); }
+    .news-card-img { overflow: hidden; }
+    .news-card-img img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .news-card:hover .news-card-img img { transform: scale(1.04); }
+    .news-card-body { padding: 18px 22px 24px; }
     .news-date {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--text-soft);
       letter-spacing: 0.08em;
-      white-space: nowrap;
-      flex-shrink: 0;
+      display: block;
+      margin-bottom: 8px;
     }
     .news-title {
-      font-size: 0.85rem;
-      line-height: 1.7;
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.55;
+      color: var(--text);
     }
+    .news-card:hover .news-title { color: var(--pink); }
 
     /* ============================================================
        CTA Section（⑨）
@@ -859,6 +872,21 @@
       font-size: 0.72rem;
       line-height: 1.9;
       color: rgba(255,255,255,.35);
+    }
+    .footer-pamphlet-dl {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: rgba(255,255,255,.45);
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 6px 14px;
+      letter-spacing: 0.04em;
+      transition: color .2s, border-color .2s;
+    }
+    .footer-pamphlet-dl:hover {
+      color: rgba(255,255,255,.75);
+      border-color: rgba(255,255,255,.45);
     }
     .footer-nav-label {
       font-size: 0.7rem;
@@ -1421,28 +1449,35 @@
           </div>
           <a href="news.html" class="news-more">VIEW MORE</a>
         </div>
-        <ul class="news-list">
-          <li class="news-item"><a href="#">
-            <span class="news-date">2026.06.16</span>
-            <span class="news-title">夏の体験見学会のご案内（7月・8月開催）</span>
-          </a></li>
-          <li class="news-item"><a href="#">
-            <span class="news-date">2026.06.10</span>
-            <span class="news-title">6月のイベントスケジュールを更新しました</span>
-          </a></li>
-          <li class="news-item"><a href="#">
-            <span class="news-date">2026.06.01</span>
-            <span class="news-title">ホームページをリニューアルしました</span>
-          </a></li>
-          <li class="news-item"><a href="#">
-            <span class="news-date">2026.05.20</span>
-            <span class="news-title">5月の端午の節句イベントを開催しました</span>
-          </a></li>
-          <li class="news-item"><a href="#">
-            <span class="news-date">2026.05.01</span>
-            <span class="news-title">春の新プログラム「フラワーアレンジメント」スタートのお知らせ</span>
-          </a></li>
-        </ul>
+        <div class="news-grid">
+          <a href="news.html" class="news-card">
+            <div class="news-card-img">
+              <img src="sozai/pixta_69408998_XL.jpg" alt="夏の体験見学会">
+            </div>
+            <div class="news-card-body">
+              <span class="news-date">2026.06.16</span>
+              <p class="news-title">夏の体験見学会のご案内（7月・8月開催）</p>
+            </div>
+          </a>
+          <a href="news.html" class="news-card">
+            <div class="news-card-img">
+              <img src="sozai/pixta_92159488_XL.jpg" alt="リニューアル">
+            </div>
+            <div class="news-card-body">
+              <span class="news-date">2026.06.10</span>
+              <p class="news-title">6月のイベントスケジュールを更新しました</p>
+            </div>
+          </a>
+          <a href="news.html" class="news-card">
+            <div class="news-card-img">
+              <img src="sozai/pixta_77971773_XL.jpg" alt="フラワーアレンジメント">
+            </div>
+            <div class="news-card-body">
+              <span class="news-date">2026.06.01</span>
+              <p class="news-title">ホームページをリニューアルしました</p>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1486,6 +1521,7 @@
             日神パレステージ横濱 107<br>
             TEL: 045-325-9251
           </p>
+          <a href="#" class="footer-pamphlet-dl">施設パンフレット（PDF）をダウンロード</a>
         </div>
 
         <!-- ABOUT -->
@@ -1493,7 +1529,7 @@
           <p class="footer-nav-label">ABOUT</p>
           <ul class="footer-nav-list">
             <li><a href="#">ローレル横浜について</a></li>
-            <li><a href="#">サービス内容</a></li>
+            <li><a href="#">サービス・料金</a></li>
             <li><a href="#">1日の流れ</a></li>
             <li><a href="#">選ばれる理由</a></li>
             <li><a href="#">ご利用案内</a></li>
@@ -1507,6 +1543,7 @@
             <li><a href="news.html">お知らせ</a></li>
             <li><a href="events.html">イベント情報</a></li>
             <li><a href="lunch.html">ランチ・スイーツ</a></li>
+            <li><a href="#">ハッピースマイル</a></li>
             <li><a href="#">利用者の声</a></li>
           </ul>
         </div>
