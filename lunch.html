@@ -127,13 +127,7 @@
       border-color: var(--pink);
       color: #fff;
     }
-    .cat-btn .cat-count {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      opacity: 0.7;
-    }
-
-    /* ── Lunch Grid ── */
+/* ── Lunch Grid ── */
     .lunch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
     .lunch-card.hidden { display: none; }
     .lunch-card { background: #fff; border: 1px solid var(--border); overflow: hidden; }
@@ -277,11 +271,11 @@
 
         <!-- カテゴリフィルター -->
         <div class="category-filter" id="categoryFilter">
-          <button class="cat-btn active" data-cat="all">すべて <span class="cat-count" id="count-all"></span></button>
-          <button class="cat-btn" data-cat="lunch">ランチ <span class="cat-count" id="count-lunch"></span></button>
-          <button class="cat-btn" data-cat="sweets">スイーツ <span class="cat-count" id="count-sweets"></span></button>
-          <button class="cat-btn" data-cat="birthday">バースデーケーキ <span class="cat-count" id="count-birthday"></span></button>
-          <button class="cat-btn" data-cat="event">イベントメニュー <span class="cat-count" id="count-event"></span></button>
+          <button class="cat-btn active" data-cat="all">すべて</button>
+          <button class="cat-btn" data-cat="lunch">ランチ</button>
+          <button class="cat-btn" data-cat="sweets">スイーツ</button>
+          <button class="cat-btn" data-cat="birthday">バースデーケーキ</button>
+          <button class="cat-btn" data-cat="event">イベントメニュー</button>
         </div>
 
         <div class="lunch-grid" id="lunchGrid">
@@ -459,19 +453,7 @@
     const catBtns = document.querySelectorAll('.cat-btn');
     const cards   = document.querySelectorAll('.lunch-card');
 
-    // 件数カウントを更新
-    const catMap = { all: 0, lunch: 0, sweets: 0, birthday: 0, event: 0 };
-    cards.forEach(card => {
-      const c = card.dataset.category;
-      catMap.all++;
-      if (catMap[c] !== undefined) catMap[c]++;
-    });
-    Object.entries(catMap).forEach(([key, val]) => {
-      const el = document.getElementById('count-' + key);
-      if (el) el.textContent = val;
-    });
-
-    catBtns.forEach(btn => {
+catBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         catBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
